@@ -66,11 +66,10 @@ import {
   Bell,
   Mail,
   Instagram,
-  Twitter,
   Menu,
   X,
 } from "lucide-react";
-import { SiYoutube } from "react-icons/si";
+import { SiYoutube, SiTiktok } from "react-icons/si";
 import { useI18n, type Locale } from "@/lib/i18n";
 import { Languages } from "lucide-react";
 import factopediaLogo from "@assets/factopedia_profile.jpg";
@@ -1517,7 +1516,9 @@ function Footer() {
                 YouTube
               </a>
               <a
-                href="#"
+                href="https://instagram.com/factopedia_ch_real"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-card-border text-muted-foreground text-sm hover:text-white hover:border-border transition-colors"
                 data-testid="link-footer-instagram"
               >
@@ -1525,12 +1526,14 @@ function Footer() {
                 Instagram
               </a>
               <a
-                href="#"
+                href="https://tiktok.com/@factopedia_ch"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-card-border text-muted-foreground text-sm hover:text-white hover:border-border transition-colors"
-                data-testid="link-footer-twitter"
+                data-testid="link-footer-tiktok"
               >
-                <Twitter size={14} />
-                Twitter
+                <SiTiktok size={14} />
+                TikTok
               </a>
             </div>
           </div>
