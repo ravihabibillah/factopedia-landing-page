@@ -9,8 +9,33 @@ import {
   useMotionValue,
   useAnimationFrame,
 } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+
+/* ─────────────────────────── YOUTUBE STATS HOOK ─────────────────────────── */
+
+interface YouTubeStats {
+  subscriberCount: string;
+  videoCount: string;
+  viewCount: string;
+}
+
+function useYouTubeStats() {
+  return useQuery<YouTubeStats>({
+    queryKey: ["/api/youtube/stats"],
+    staleTime: 5 * 60 * 1000,
+    refetchInterval: 5 * 60 * 1000,
+  });
+}
+
+function formatCount(numStr: string): string {
+  const n = parseInt(numStr, 10);
+  if (isNaN(n)) return "0";
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
+  if (n >= 1_000) return (n / 1_000).toFixed(1).replace(/\.0$/, "") + "K";
+  return n.toLocaleString();
+}
 import {
   Globe,
   FlaskConical,
@@ -582,10 +607,16 @@ function HeroSection() {
 /* ─────────────────────────── STATS SECTION ─────────────────────────── */
 
 function StatsSection() {
+  const { data: ytStats } = useYouTubeStats();
+
+  const videoCount = ytStats ? parseInt(ytStats.videoCount, 10) : 500;
+  const subscriberCount = ytStats ? parseInt(ytStats.subscriberCount, 10) : 50000;
+  const viewCount = ytStats ? parseInt(ytStats.viewCount, 10) : 1000000;
+
   const stats = [
-    { value: 500, suffix: "+", label: "Videos Published", icon: Play },
-    { value: 365, suffix: "", label: "Days of Facts Per Year", icon: Clock },
-    { value: 50000, suffix: "+", label: "Subscribers", icon: Star },
+    { value: videoCount, suffix: "+", label: "Videos Published", icon: Play },
+    { value: viewCount, suffix: "+", label: "Total Views", icon: Eye },
+    { value: subscriberCount, suffix: "+", label: "Subscribers", icon: Star },
     { value: 7, suffix: "", label: "Knowledge Categories", icon: BookOpen },
   ];
 
@@ -621,6 +652,7 @@ function StatsSection() {
 /* ─────────────────────────── ABOUT SECTION ─────────────────────────── */
 
 function AboutSection() {
+  const { data: ytStats } = useYouTubeStats();
   const features = [
     { icon: Zap, label: "Daily Uploads", desc: "Fresh content every day at 9 AM" },
     { icon: Brain, label: "Research-Backed", desc: "Verified from reliable sources" },
@@ -737,7 +769,7 @@ function AboutSection() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -top-5 -right-5 bg-chart-2/20 border border-chart-2/30 rounded-lg p-3 backdrop-blur-sm"
               >
-                <div className="text-chart-2 text-xs font-bold">+500 Videos</div>
+                <div className="text-chart-2 text-xs font-bold">+{ytStats ? formatCount(ytStats.videoCount) : "500"} Videos</div>
                 <div className="text-muted-foreground text-xs">All Categories</div>
               </motion.div>
 
@@ -746,7 +778,7 @@ function AboutSection() {
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                 className="absolute -bottom-4 -left-4 bg-chart-5/15 border border-chart-5/25 rounded-lg p-3 backdrop-blur-sm"
               >
-                <div className="text-chart-5 text-xs font-bold">50,000+</div>
+                <div className="text-chart-5 text-xs font-bold">{ytStats ? formatCount(ytStats.subscriberCount) : "50K"}+</div>
                 <div className="text-muted-foreground text-xs">Subscribers</div>
               </motion.div>
             </div>
@@ -1315,6 +1347,7 @@ function CountdownSection() {
 /* ─────────────────────────── CTA SECTION ─────────────────────────── */
 
 function CTASection() {
+  const { data: ytStats } = useYouTubeStats();
   return (
     <section className="relative py-28 overflow-hidden" data-testid="section-cta">
       {/* Dramatic background */}
@@ -1391,9 +1424,9 @@ function CTASection() {
         <ScrollReveal direction="up" delay={0.4}>
           <div className="mt-12 flex flex-wrap items-center justify-center gap-8">
             {[
-              { value: "50K+", label: "Subscribers" },
-              { value: "500+", label: "Videos" },
-              { value: "4.9★", label: "Avg Rating" },
+              { value: ytStats ? formatCount(ytStats.subscriberCount) + "+" : "50K+", label: "Subscribers" },
+              { value: ytStats ? formatCount(ytStats.videoCount) + "+" : "500+", label: "Videos" },
+              { value: ytStats ? formatCount(ytStats.viewCount) + "+" : "1M+", label: "Total Views" },
             ].map((s) => (
               <div key={s.label} className="text-center" data-testid={`stat-cta-${s.label.toLowerCase()}`}>
                 <div className="font-display text-2xl font-bold gradient-text-cyan">{s.value}</div>
