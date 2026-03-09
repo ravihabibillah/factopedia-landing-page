@@ -672,10 +672,10 @@ function AboutSection() {
   const { data: ytStats } = useYouTubeStats();
   const { locale, t } = useI18n();
   const features = [
-    { icon: Zap, label: t.about.features.dailyUploads[locale], desc: t.about.features.dailyUploadsDesc[locale] },
-    { icon: Brain, label: t.about.features.researchBacked[locale], desc: t.about.features.researchBackedDesc[locale] },
-    { icon: Eye, label: t.about.features.visualStories[locale], desc: t.about.features.visualStoriesDesc[locale] },
-    { icon: Lightbulb, label: t.about.features.funLearning[locale], desc: t.about.features.funLearningDesc[locale] },
+    { icon: Globe, label: t.about.features.dailyUploads[locale], desc: t.about.features.dailyUploadsDesc[locale] },
+    { icon: Star, label: t.about.features.researchBacked[locale], desc: t.about.features.researchBackedDesc[locale] },
+    { icon: Lightbulb, label: t.about.features.visualStories[locale], desc: t.about.features.visualStoriesDesc[locale] },
+    { icon: Brain, label: t.about.features.funLearning[locale], desc: t.about.features.funLearningDesc[locale] },
   ];
 
   return (
@@ -748,7 +748,13 @@ function AboutSection() {
                     <span className="text-xs text-destructive font-semibold uppercase tracking-widest">{t.about.channelLive[locale]}</span>
                   </div>
 
-                  <div className="font-display text-2xl font-bold text-white mb-2">Factopedia</div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <img src={factopediaLogo} alt="Factopedia" className="w-10 h-10 rounded-full object-cover ring-1 ring-primary/30" />
+                    <div>
+                      <div className="font-display text-xl font-bold text-white">Factopedia</div>
+                      <div className="text-xs text-muted-foreground">@factopedia-ch</div>
+                    </div>
+                  </div>
                   <p className="text-sm text-muted-foreground mb-6">{t.about.channelDesc[locale]}</p>
 
                   {/* Category pills */}
@@ -1559,11 +1565,11 @@ function Footer() {
                 <div>
                   <div className="text-xs text-muted-foreground mb-0.5">{t.footer.email[locale]}</div>
                   <a
-                    href="mailto:hello@factopedia.com"
+                    href="mailto:factopedia.ch.id@gmail.com"
                     className="text-sm text-white hover:text-primary transition-colors"
                     data-testid="link-footer-email"
                   >
-                    hello@factopedia.com
+                    factopedia.ch.id@gmail.com
                   </a>
                 </div>
               </div>
