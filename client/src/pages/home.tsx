@@ -106,7 +106,7 @@ function ParticleField() {
     window.addEventListener("resize", resize);
 
     const colors = [
-      "hsla(191,100%,60%,",
+      "hsla(215,70%,65%,",
       "hsla(210,100%,70%,",
       "hsla(45,95%,65%,",
       "hsla(270,80%,70%,",
@@ -151,7 +151,7 @@ function ParticleField() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 90) {
             ctx.beginPath();
-            ctx.strokeStyle = `hsla(191,100%,60%,${(1 - dist / 90) * 0.08})`;
+            ctx.strokeStyle = `hsla(215,70%,65%,${(1 - dist / 90) * 0.08})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -824,7 +824,7 @@ function CategoriesSection() {
       bg: "bg-chart-1/8",
       border: "border-chart-1/20",
       hoverBorder: "hover:border-chart-1/50",
-      glow: "hover:shadow-[0_0_25px_hsla(191,100%,50%,0.15)]",
+      glow: "hover:shadow-[0_0_25px_hsla(215,70%,58%,0.15)]",
       playlistId: "PLDX4ZIKdbHYMgr4iAncAhMpaNetPcuyid",
     },
     {
@@ -1334,7 +1334,7 @@ function CTASection() {
   return (
     <section className="relative py-28 overflow-hidden" data-testid="section-cta">
       {/* Dramatic background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(191,100%,6%)] via-[hsl(222,47%,7%)] to-[hsl(222,47%,4%)]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(215,70%,6%)] via-[hsl(222,47%,7%)] to-[hsl(222,47%,4%)]" />
       <div className="absolute inset-0 grid-bg opacity-60" />
 
       {/* Radial glow effects */}

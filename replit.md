@@ -36,7 +36,7 @@ Factopedia publishes fascinating facts from around the world (History, Science, 
 ## Design Tokens (Dark Mode — Factopedia Brand)
 
 - **Background**: `hsl(222, 47%, 5%)` — Deep space blue-black
-- **Primary**: `hsl(191, 100%, 50%)` — Electric cyan (Factopedia signature)
+- **Primary**: `hsl(215, 70%, 58%)` — Factopedia Blue (matching channel logo)
 - **Chart-2**: `hsl(45, 95%, 58%)` — Golden yellow accent
 - **Font**: Space Grotesk (sans), Oxanium (display)
 - Grid background, radial glow effects, gradient text utilities in `index.css`

@@ -105,32 +105,32 @@
   --sidebar: 222 40% 8%;
   --sidebar-foreground: 210 40% 94%;
   --sidebar-border: 217 33% 14%;
-  --sidebar-primary: 191 100% 50%;
+  --sidebar-primary: 215 70% 58%;
   --sidebar-primary-foreground: 222 47% 5%;
   --sidebar-accent: 217 33% 14%;
   --sidebar-accent-foreground: 210 40% 94%;
-  --sidebar-ring: 191 100% 50%;
+  --sidebar-ring: 215 70% 58%;
   --popover: 222 40% 8%;
   --popover-foreground: 210 40% 94%;
   --popover-border: 217 33% 14%;
 
-  /* Electric Cyan as primary – the Factopedia signature color */
-  --primary: 191 100% 50%;
+  /* Factopedia Blue – matching the channel logo */
+  --primary: 215 70% 58%;
   --primary-foreground: 222 47% 5%;
 
   --secondary: 217 33% 14%;
   --secondary-foreground: 210 40% 90%;
   --muted: 217 33% 11%;
   --muted-foreground: 215 20% 55%;
-  --accent: 191 60% 14%;
-  --accent-foreground: 191 100% 80%;
+  --accent: 215 60% 14%;
+  --accent-foreground: 215 70% 80%;
   --destructive: 0 84% 42%;
   --destructive-foreground: 0 84% 98%;
   --input: 217 33% 20%;
-  --ring: 191 100% 50%;
+  --ring: 215 70% 58%;
 
-  /* Chart colors: cyan, yellow/gold, purple, red, green */
-  --chart-1: 191 100% 50%;
+  /* Chart colors: blue, yellow/gold, purple, red, green */
+  --chart-1: 215 70% 58%;
   --chart-2: 45 95% 58%;
   --chart-3: 270 80% 68%;
   --chart-4: 340 82% 66%;
@@ -265,7 +265,7 @@
 
   /* Factopedia Gradient Text */
   .gradient-text-cyan {
-    background: linear-gradient(135deg, hsl(191 100% 60%) 0%, hsl(210 100% 70%) 100%);
+    background: linear-gradient(135deg, hsl(215 70% 65%) 0%, hsl(200 80% 70%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -279,7 +279,7 @@
   }
 
   .gradient-text-hero {
-    background: linear-gradient(135deg, #ffffff 0%, hsl(191 100% 70%) 50%, hsl(45 95% 65%) 100%);
+    background: linear-gradient(135deg, #ffffff 0%, hsl(215 70% 70%) 50%, hsl(45 95% 65%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -287,11 +287,11 @@
 
   /* Factopedia Glow Effects */
   .glow-cyan {
-    box-shadow: 0 0 20px hsla(191, 100%, 50%, 0.3), 0 0 60px hsla(191, 100%, 50%, 0.1);
+    box-shadow: 0 0 20px hsla(215, 70%, 58%, 0.3), 0 0 60px hsla(215, 70%, 58%, 0.1);
   }
 
   .glow-cyan-sm {
-    box-shadow: 0 0 10px hsla(191, 100%, 50%, 0.25), 0 0 30px hsla(191, 100%, 50%, 0.08);
+    box-shadow: 0 0 10px hsla(215, 70%, 58%, 0.25), 0 0 30px hsla(215, 70%, 58%, 0.08);
   }
 
   .glow-gold {
@@ -301,18 +301,18 @@
   /* Cinematic Grid Background */
   .grid-bg {
     background-image:
-      linear-gradient(hsla(191, 100%, 50%, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, hsla(191, 100%, 50%, 0.03) 1px, transparent 1px);
+      linear-gradient(hsla(215, 70%, 58%, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsla(215, 70%, 58%, 0.03) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
   /* Radial gradient overlays */
   .radial-glow-hero {
-    background: radial-gradient(ellipse 80% 50% at 50% 0%, hsla(191, 100%, 50%, 0.12) 0%, transparent 70%);
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, hsla(215, 70%, 58%, 0.12) 0%, transparent 70%);
   }
 
   .radial-glow-cyan {
-    background: radial-gradient(ellipse 60% 40% at 50% 50%, hsla(191, 100%, 50%, 0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse 60% 40% at 50% 50%, hsla(215, 70%, 58%, 0.08) 0%, transparent 70%);
   }
 
   /* Factopedia Card hover border glow */
@@ -321,8 +321,8 @@
   }
 
   .card-glow-hover:hover {
-    border-color: hsla(191, 100%, 50%, 0.4) !important;
-    box-shadow: 0 0 20px hsla(191, 100%, 50%, 0.15), 0 8px 32px hsla(222, 47%, 2%, 0.6);
+    border-color: hsla(215, 70%, 58%, 0.4) !important;
+    box-shadow: 0 0 20px hsla(215, 70%, 58%, 0.15), 0 8px 32px hsla(222, 47%, 2%, 0.6);
   }
 
   /* Oxanium font for display headings */
