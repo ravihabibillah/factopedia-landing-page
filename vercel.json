@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npx vite build",
+  "outputDirectory": "dist/public",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/api/youtube/stats", "destination": "/api/youtube/stats" },
+    { "source": "/api/youtube/videos", "destination": "/api/youtube/videos" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
