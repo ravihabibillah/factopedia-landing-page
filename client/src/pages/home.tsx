@@ -1581,9 +1581,7 @@ function Footer() {
                     rel="noopener noreferrer"
                     className="text-sm text-white hover:text-primary transition-colors"
                     data-testid="link-footer-channel"
-                  >
-                    @factopedia
-                  </a>
+                  >@Factopedia-ch</a>
                 </div>
               </div>
               <div className="flex items-start gap-3">
