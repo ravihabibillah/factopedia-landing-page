@@ -1519,7 +1519,7 @@ function Footer() {
                 href="https://instagram.com/factopedia_ch_real"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/ig flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-card-border text-muted-foreground text-sm hover:text-white hover:border-border transition-colors"
+                className="group/ig flex items-center gap-2 px-4 py-2 rounded-lg bg-[#E4405F]/10 border border-[#E4405F]/25 text-muted-foreground text-sm hover:bg-[#E4405F]/20 hover:border-[#E4405F]/40 transition-colors"
                 data-testid="link-footer-instagram"
               >
                 <Instagram size={14} className="text-[#E4405F] group-hover/ig:text-[#E4405F]" />
@@ -1529,7 +1529,7 @@ function Footer() {
                 href="https://tiktok.com/@factopedia_ch"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/tt flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-card-border text-muted-foreground text-sm hover:text-white hover:border-border transition-colors"
+                className="group/tt flex items-center gap-2 px-4 py-2 rounded-lg bg-[#00F2EA]/10 border border-[#00F2EA]/25 text-muted-foreground text-sm hover:bg-[#00F2EA]/20 hover:border-[#00F2EA]/40 transition-colors"
                 data-testid="link-footer-tiktok"
               >
                 <SiTiktok size={14} className="text-[#00F2EA] group-hover/tt:text-[#00F2EA]" />
