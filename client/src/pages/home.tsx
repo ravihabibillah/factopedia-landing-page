@@ -333,7 +333,7 @@ function Navbar() {
             className="bg-primary text-primary-foreground gap-2 glow-cyan-sm"
             data-testid="button-subscribe-nav"
           >
-            <a href="https://www.youtube.com/@factopedia" target="_blank" rel="noopener noreferrer">
+            <a href="https://youtube.com/@Factopedia-ch" target="_blank" rel="noopener noreferrer">
               <SiYoutube size={14} />
               Subscribe
             </a>
@@ -379,7 +379,7 @@ function Navbar() {
                 className="bg-primary text-primary-foreground gap-2 mt-2"
                 data-testid="button-subscribe-mobile"
               >
-                <a href="https://www.youtube.com/@factopedia" target="_blank" rel="noopener noreferrer">
+                <a href="https://youtube.com/@Factopedia-ch" target="_blank" rel="noopener noreferrer">
                   <SiYoutube size={14} />
                   Subscribe on YouTube
                 </a>
@@ -540,7 +540,7 @@ function HeroSection() {
             className="bg-primary text-primary-foreground gap-2.5 px-8 text-base font-semibold glow-cyan"
             data-testid="button-watch-youtube"
           >
-            <a href="https://www.youtube.com/@factopedia" target="_blank" rel="noopener noreferrer">
+            <a href="https://youtube.com/@Factopedia-ch" target="_blank" rel="noopener noreferrer">
               <Play size={18} fill="currentColor" />
               Watch on YouTube
             </a>
@@ -552,7 +552,7 @@ function HeroSection() {
             className="gap-2.5 px-8 text-base font-semibold border-white/20 text-white bg-white/5 backdrop-blur-sm"
             data-testid="button-subscribe-hero"
           >
-            <a href="https://www.youtube.com/@factopedia?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
+            <a href="https://youtube.com/@Factopedia-ch?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
               <Bell size={16} />
               Subscribe Now
             </a>
@@ -1088,7 +1088,7 @@ function VideosSection() {
               className="gap-2.5 border-primary/30 text-primary bg-primary/8 px-8 text-base"
               data-testid="button-view-all-videos"
             >
-              <a href="https://www.youtube.com/@factopedia/videos" target="_blank" rel="noopener noreferrer">
+              <a href="https://youtube.com/@Factopedia-ch/videos" target="_blank" rel="noopener noreferrer">
                 <SiYoutube size={16} />
                 View All Videos on YouTube
                 <ArrowRight size={16} />
@@ -1300,7 +1300,7 @@ function CountdownSection() {
               className="bg-primary text-primary-foreground gap-2.5 px-8 text-base font-semibold glow-cyan"
               data-testid="button-set-reminder"
             >
-              <a href="https://www.youtube.com/@factopedia?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
+              <a href="https://youtube.com/@Factopedia-ch?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
                 <Bell size={18} />
                 Set Reminder — Subscribe Free
               </a>
@@ -1367,7 +1367,7 @@ function CTASection() {
               className="bg-destructive text-destructive-foreground gap-2.5 px-10 text-lg font-bold shadow-[0_0_30px_hsla(0,84%,42%,0.3)]"
               data-testid="button-subscribe-cta"
             >
-              <a href="https://www.youtube.com/@factopedia?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
+              <a href="https://youtube.com/@Factopedia-ch?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
                 <SiYoutube size={20} />
                 Subscribe Free on YouTube
               </a>
@@ -1379,7 +1379,7 @@ function CTASection() {
               className="gap-2.5 px-8 text-base border-primary/30 text-primary bg-primary/8 font-semibold"
               data-testid="button-watch-cta"
             >
-              <a href="https://www.youtube.com/@factopedia/videos" target="_blank" rel="noopener noreferrer">
+              <a href="https://youtube.com/@Factopedia-ch/videos" target="_blank" rel="noopener noreferrer">
                 <Play size={16} fill="currentColor" />
                 Browse All Videos
               </a>
@@ -1433,7 +1433,7 @@ function Footer() {
             </p>
             <div className="flex items-center gap-3 flex-wrap">
               <a
-                href="https://www.youtube.com/@factopedia"
+                href="https://youtube.com/@Factopedia-ch"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive/15 border border-destructive/25 text-destructive text-sm font-semibold hover:bg-destructive/25 transition-colors"
@@ -1502,7 +1502,7 @@ function Footer() {
                 <div>
                   <div className="text-xs text-muted-foreground mb-0.5">YouTube Channel</div>
                   <a
-                    href="https://www.youtube.com/@factopedia"
+                    href="https://youtube.com/@Factopedia-ch"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-white hover:text-primary transition-colors"
