@@ -73,6 +73,7 @@ import {
 import { SiYoutube } from "react-icons/si";
 import { useI18n, type Locale } from "@/lib/i18n";
 import { Languages } from "lucide-react";
+import factopediaLogo from "@assets/factopedia_profile.jpg";
 
 /* ─────────────────────────── TYPES ─────────────────────────── */
 
@@ -343,11 +344,11 @@ function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 gap-4">
         <a href="#" className="flex items-center gap-2.5 shrink-0">
-          <div className="relative">
-            <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center glow-cyan-sm">
-              <Sparkles size={16} className="text-primary-foreground" />
-            </div>
-          </div>
+          <img
+            src={factopediaLogo}
+            alt="Factopedia"
+            className="w-9 h-9 rounded-full object-cover ring-1 ring-primary/30"
+          />
           <span className="font-display font-bold text-xl text-white tracking-wide">
             Facto<span className="gradient-text-cyan">pedia</span>
           </span>
@@ -1488,9 +1489,11 @@ function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-9 h-9 rounded-md bg-primary flex items-center justify-center glow-cyan-sm">
-                <Sparkles size={16} className="text-primary-foreground" />
-              </div>
+              <img
+                src={factopediaLogo}
+                alt="Factopedia"
+                className="w-10 h-10 rounded-full object-cover ring-1 ring-primary/30"
+              />
               <span className="font-display font-bold text-2xl text-white tracking-wide">
                 Facto<span className="gradient-text-cyan">pedia</span>
               </span>
