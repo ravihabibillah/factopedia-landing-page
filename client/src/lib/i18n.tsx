@@ -133,32 +133,6 @@ const translations = {
     views: { id: "tayangan", en: "views" },
     today: { id: "Hari ini", en: "Today" },
     daysAgo: { id: "hari lalu", en: "d ago" },
-    items: {
-      v1Title: {
-        id: "Kenapa Kucing Selalu Mendarat dengan Kakinya? Fisikanya Luar Biasa",
-        en: "Why Do Cats Always Land on Their Feet? The Physics Is Incredible",
-      },
-      v2Title: {
-        id: "Kota Atlantis yang Hilang — Apa yang Sebenarnya Kita Ketahui?",
-        en: "The Lost City of Atlantis — What Do We Actually Know?",
-      },
-      v3Title: {
-        id: "Bagaimana Lubang Hitam Mendistorsi Waktu — Einstein Benar",
-        en: "How Black Holes Actually Distort Time — Einstein Was Right",
-      },
-      v4Title: {
-        id: "Jaringan Jalan Romawi Kuno Lebih Canggih dari yang Kita Kira",
-        en: "The Ancient Roman Road Network Was More Advanced Than We Thought",
-      },
-      v5Title: {
-        id: "Tumbuhan Paling Berbahaya di Dunia — Dan Ada di Mana-mana",
-        en: "The Most Dangerous Plant in the World — And It's Everywhere",
-      },
-      v6Title: {
-        id: "Bagaimana Bulan Perlahan Menjauh dari Bumi",
-        en: "How the Moon Is Slowly Drifting Away From Earth",
-      },
-    },
   },
   why: {
     badge: { id: "Kenapa Factopedia", en: "Why Factopedia" },

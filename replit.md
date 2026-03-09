@@ -27,7 +27,7 @@ Factopedia publishes fascinating facts from around the world (History, Science, 
 4. **Stats** — Animated counters (500+ videos, 365 days/year, 50K+ subscribers, 7 categories) with scroll-triggered count-up
 5. **About** — Channel description, feature cards, interactive channel preview card with floating stat badges
 6. **Categories** — 8 category cards (History, Science, Culture, Animals, Plants, World Mysteries, News Facts, World Curiosities) with hover lift + glow effects
-7. **Videos** — 6 latest video cards with YouTube thumbnail embeds, play button overlay on hover
+7. **Videos** — 6 latest YouTube Shorts fetched dynamically from the channel API, with real thumbnails, view counts, Shorts badge, and play button overlay linking to youtube.com/shorts/
 8. **Why Watch** — 6 reason cards with icons and animated micro-interactions
 9. **Countdown** — Live real-time countdown to next 9:00 AM upload with animated digit transitions
 10. **CTA** — Big subscribe section with YouTube branding, social proof stats, orbiting ring decorations
@@ -70,10 +70,12 @@ Factopedia publishes fascinating facts from around the world (History, Science, 
 
 ## YouTube Data API
 
-- **Endpoint**: `GET /api/youtube/stats` — returns `{ subscriberCount, videoCount, viewCount }`
+- **Stats Endpoint**: `GET /api/youtube/stats` — returns `{ subscriberCount, videoCount, viewCount }`
+- **Videos Endpoint**: `GET /api/youtube/videos` — returns latest 6 Shorts with `{ videoId, title, thumbnail, duration, viewCount, publishedAt, isShort }`
 - **API Key**: `YOUTUBE_API_KEY` environment secret
-- **Cache**: Server caches stats for 5 minutes to avoid rate limits
+- **Cache**: Server caches both stats and videos for 5 minutes to avoid rate limits
 - **Channel**: `https://youtube.com/@Factopedia-ch`
+- **Contact**: `factopedia.ch.id@gmail.com`
 
 ## Dependencies
 

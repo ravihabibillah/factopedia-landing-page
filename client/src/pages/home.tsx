@@ -966,23 +966,28 @@ function CategoriesSection() {
 
 function VideoCard({
   title,
-  category,
   views,
   duration,
   daysAgo,
   videoId,
   index,
+  isShort,
+  thumbnail,
 }: {
   title: string;
-  category: string;
   views: string;
   duration: string;
   daysAgo: number;
   videoId: string;
   index: number;
+  isShort?: boolean;
+  thumbnail?: string;
 }) {
   const [hovered, setHovered] = useState(false);
   const { locale, t } = useI18n();
+  const videoUrl = isShort
+    ? `https://www.youtube.com/shorts/${videoId}`
+    : `https://www.youtube.com/watch?v=${videoId}`;
 
   return (
     <ScrollReveal delay={index * 0.1} direction="up">
@@ -994,25 +999,29 @@ function VideoCard({
         className="group rounded-xl border border-card-border bg-card card-glow-hover overflow-hidden"
         data-testid={`card-video-${index}`}
       >
-        {/* Thumbnail */}
         <div className="relative aspect-video bg-muted overflow-hidden">
           <img
-            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+            src={thumbnail || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
             alt={title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             onError={(e) => {
               (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
             }}
           />
-          {/* Dark overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
 
-          {/* Duration badge */}
-          <div className="absolute bottom-2 right-2 bg-background/80 backdrop-blur-sm text-white text-xs font-mono px-2 py-0.5 rounded font-medium">
-            {duration}
+          <div className="absolute bottom-2 right-2 flex items-center gap-1.5">
+            {isShort && (
+              <div className="bg-red-600/90 backdrop-blur-sm text-white text-xs font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                <SiYoutube size={10} />
+                Shorts
+              </div>
+            )}
+            <div className="bg-background/80 backdrop-blur-sm text-white text-xs font-mono px-2 py-0.5 rounded font-medium">
+              {duration}
+            </div>
           </div>
 
-          {/* Play overlay */}
           <AnimatePresence>
             {hovered && (
               <motion.div
@@ -1023,7 +1032,7 @@ function VideoCard({
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <a
-                  href={`https://www.youtube.com/watch?v=${videoId}`}
+                  href={videoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-14 h-14 rounded-full bg-primary flex items-center justify-center glow-cyan"
@@ -1036,14 +1045,7 @@ function VideoCard({
           </AnimatePresence>
         </div>
 
-        {/* Info */}
         <div className="p-4">
-          <Badge
-            variant="outline"
-            className="mb-2 text-xs border-primary/25 text-primary bg-primary/8 px-2 py-0.5"
-          >
-            {category}
-          </Badge>
           <h3
             className="font-semibold text-white text-sm leading-snug mb-3 group-hover:text-primary transition-colors duration-200 line-clamp-2"
             data-testid={`text-video-title-${index}`}
@@ -1065,58 +1067,40 @@ function VideoCard({
 
 /* ─────────────────────────── VIDEOS SECTION ─────────────────────────── */
 
+function useYouTubeVideos() {
+  return useQuery<{
+    videoId: string;
+    title: string;
+    thumbnail: string;
+    duration: string;
+    viewCount: string;
+    publishedAt: string;
+    isShort: boolean;
+  }[]>({
+    queryKey: ["/api/youtube/videos"],
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
 function VideosSection() {
   const { locale, t } = useI18n();
-  const videos = [
-    {
-      title: t.videos.items.v1Title[locale],
-      category: t.categories.items.animals[locale],
-      views: "42K",
-      duration: "8:24",
-      daysAgo: 0,
-      videoId: "RtWbpyjJqrU",
-    },
-    {
-      title: t.videos.items.v2Title[locale],
-      category: t.categories.items.worldMysteries[locale],
-      views: "89K",
-      duration: "11:15",
-      daysAgo: 1,
-      videoId: "nVUJqJIEkFI",
-    },
-    {
-      title: t.videos.items.v3Title[locale],
-      category: t.categories.items.science[locale],
-      views: "130K",
-      duration: "9:52",
-      daysAgo: 2,
-      videoId: "e-P5IFTqB98",
-    },
-    {
-      title: t.videos.items.v4Title[locale],
-      category: t.categories.items.history[locale],
-      views: "67K",
-      duration: "10:08",
-      daysAgo: 3,
-      videoId: "oJEUFMB5zEo",
-    },
-    {
-      title: t.videos.items.v5Title[locale],
-      category: t.categories.items.plants[locale],
-      views: "55K",
-      duration: "7:38",
-      daysAgo: 4,
-      videoId: "4Q5VkqSH8T0",
-    },
-    {
-      title: t.videos.items.v6Title[locale],
-      category: t.categories.items.science[locale],
-      views: "98K",
-      duration: "12:01",
-      daysAgo: 5,
-      videoId: "9TS6b7nYoY8",
-    },
-  ];
+  const { data: ytVideos, isLoading } = useYouTubeVideos();
+
+  const videos = (ytVideos || []).map((v) => {
+    const pubDate = new Date(v.publishedAt);
+    const now = new Date();
+    const diffMs = now.getTime() - pubDate.getTime();
+    const daysAgo = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    return {
+      title: v.title,
+      views: formatCount(v.viewCount),
+      duration: v.duration,
+      daysAgo,
+      videoId: v.videoId,
+      isShort: v.isShort,
+      thumbnail: v.thumbnail,
+    };
+  });
 
   return (
     <section id="videos" className="relative py-24 overflow-hidden" data-testid="section-videos">
@@ -1136,11 +1120,25 @@ function VideosSection() {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videos.map((v, i) => (
-            <VideoCard key={v.title} {...v} index={i} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="rounded-xl border border-card-border bg-card overflow-hidden animate-pulse">
+                <div className="aspect-video bg-muted" />
+                <div className="p-4 space-y-3">
+                  <div className="h-4 bg-muted rounded w-3/4" />
+                  <div className="h-3 bg-muted rounded w-1/2" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {videos.map((v, i) => (
+              <VideoCard key={v.videoId} {...v} index={i} />
+            ))}
+          </div>
+        )}
 
         <ScrollReveal direction="up" delay={0.4}>
           <div className="mt-12 text-center">
@@ -1151,7 +1149,7 @@ function VideosSection() {
               className="gap-2.5 border-primary/30 text-primary bg-primary/8 px-8 text-base"
               data-testid="button-view-all-videos"
             >
-              <a href="https://youtube.com/@Factopedia-ch/videos" target="_blank" rel="noopener noreferrer">
+              <a href="https://youtube.com/@Factopedia-ch/shorts" target="_blank" rel="noopener noreferrer">
                 <SiYoutube size={16} />
                 {t.videos.viewAll[locale]}
                 <ArrowRight size={16} />
