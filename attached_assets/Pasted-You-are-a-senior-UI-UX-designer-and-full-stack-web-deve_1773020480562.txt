@@ -1,0 +1,213 @@
+You are a senior UI/UX designer and full-stack web developer specializing in modern, interactive landing pages. Your task is to design and generate a complete landing page website for a YouTube channel called Factopedia.
+
+Project Overview
+
+Factopedia is a YouTube channel that publishes fascinating facts from around the world. The content includes:
+
+History
+
+Culture
+
+Science
+
+News
+
+Animals
+
+Plants
+
+Unique world facts
+
+Curiosities and little-known knowledge
+
+The channel uploads a new video every day at 9:00 AM.
+
+Goal
+
+Create a modern, visually engaging, interactive landing page that:
+
+Introduces the Factopedia brand
+
+Encourages visitors to subscribe to the YouTube channel
+
+Displays recent videos
+
+Makes learning facts feel exciting and fun
+
+Target Audience
+
+Curious learners
+
+Students
+
+Knowledge enthusiasts
+
+People who enjoy educational YouTube content
+
+Ages 15–45
+
+Design Requirements
+
+Use a modern, clean, tech-inspired design with strong visual hierarchy.
+
+Style inspiration:
+
+Educational but entertaining
+
+Dark mode or dark + accent colors
+
+Futuristic knowledge vibe
+
+Similar quality to high-end creator websites
+
+Color palette suggestion
+
+Dark background (#0f172a or similar)
+
+Accent colors: electric blue, yellow, or neon cyan
+
+Clean readable typography
+
+Page Sections
+
+Create the following landing page structure:
+
+Hero Section
+
+Title: “Discover the World’s Most Fascinating Facts”
+
+Subtitle explaining the channel
+
+CTA buttons:
+
+“Watch on YouTube”
+
+“Subscribe Now”
+
+Animated elements or floating icons representing knowledge (globe, microscope, fossils, animals, etc.)
+
+About Factopedia
+
+Brief description of the channel
+
+Mention daily uploads at 09:00 AM
+
+Include icons for categories (history, science, animals, culture)
+
+Content Categories
+Grid layout with interactive hover effects for:
+
+History
+
+Science
+
+Culture
+
+Animals
+
+Plants
+
+World Mysteries
+
+News Facts
+
+Latest Videos Section
+
+Embed 3–6 latest YouTube videos
+
+Responsive card layout
+
+Thumbnail + title + short description
+
+Why Watch Factopedia
+Highlight features like:
+
+Daily facts
+
+Short & engaging videos
+
+Reliable information
+
+Fun storytelling
+
+Daily Upload Reminder
+Countdown or reminder section:
+“New Facts Every Day at 09:00 AM”
+
+Call to Action
+Big subscribe section with YouTube branding:
+
+“Join Thousands of Curious Minds”
+
+Footer
+Include:
+
+YouTube link
+
+Social media placeholders
+
+Copyright
+
+Contact email
+
+Technical Requirements
+
+Generate complete working code using:
+
+HTML5
+
+Modern CSS (TailwindCSS preferred)
+
+JavaScript
+
+Fully responsive design
+
+Smooth scroll animations
+
+Hover interactions
+
+Mobile friendly
+
+SEO optimized structure
+
+Fast loading
+
+Interactive Elements
+
+Include:
+
+Smooth scrolling navigation
+
+Animated counters or statistics
+
+Hover card animations
+
+Scroll reveal animations
+
+Animated icons or illustrations
+
+SEO Optimization
+
+Include:
+
+Proper meta tags
+
+Open Graph tags
+
+Structured headings (H1, H2, H3)
+
+Optimized page title and description
+
+Output Format
+
+Provide:
+
+Complete HTML file
+
+CSS (or Tailwind implementation)
+
+JavaScript for animations and interactions
+
+Clear comments explaining sections of the code
+
+Make the result professional, visually stunning, and ready to deploy.
