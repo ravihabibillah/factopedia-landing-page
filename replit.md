@@ -58,6 +58,23 @@ Factopedia publishes fascinating facts from around the world (History, Science, 
 - `orbit` / `orbit-reverse` — orbiting elements
 - `shimmer` — gradient shimmer effect
 
+## Localization (i18n)
+
+- **System**: Lightweight custom React context (`client/src/lib/i18n.tsx`) — no external library
+- **Languages**: Bahasa Indonesia (default `"id"`) + English (`"en"`)
+- **Usage**: `const { locale, setLocale, t } = useI18n()` — access translations as `t.section.key[locale]`
+- **Persistence**: Locale saved to `localStorage` key `"factopedia-locale"`
+- **Toggle**: Language button in Navbar (both desktop + mobile) showing "EN" / "ID"
+- **Coverage**: All 11 sections fully translated — Navbar, Hero, FactTicker, Stats, About, Categories, Videos, WhyWatch, Countdown, CTA, Footer
+- **Provider**: `<I18nProvider>` wraps the app in `App.tsx`
+
+## YouTube Data API
+
+- **Endpoint**: `GET /api/youtube/stats` — returns `{ subscriberCount, videoCount, viewCount }`
+- **API Key**: `YOUTUBE_API_KEY` environment secret
+- **Cache**: Server caches stats for 5 minutes to avoid rate limits
+- **Channel**: `https://youtube.com/@Factopedia-ch`
+
 ## Dependencies
 
 All key packages already installed:

@@ -71,6 +71,8 @@ import {
   X,
 } from "lucide-react";
 import { SiYoutube } from "react-icons/si";
+import { useI18n, type Locale } from "@/lib/i18n";
+import { Languages } from "lucide-react";
 
 /* ─────────────────────────── TYPES ─────────────────────────── */
 
@@ -296,9 +298,24 @@ function ScrollReveal({
 
 /* ─────────────────────────── NAVBAR ─────────────────────────── */
 
+function LanguageToggle() {
+  const { locale, setLocale } = useI18n();
+  return (
+    <button
+      onClick={() => setLocale(locale === "id" ? "en" : "id")}
+      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-muted-foreground hover:text-white hover:bg-white/5 transition-colors border border-transparent hover:border-border/50"
+      data-testid="button-language-toggle"
+    >
+      <Languages size={14} />
+      {locale === "id" ? "EN" : "ID"}
+    </button>
+  );
+}
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { locale, t } = useI18n();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 30);
@@ -307,10 +324,10 @@ function Navbar() {
   }, []);
 
   const links = [
-    { label: "About", href: "#about" },
-    { label: "Categories", href: "#categories" },
-    { label: "Videos", href: "#videos" },
-    { label: "Why Us", href: "#why" },
+    { label: t.nav.about[locale], href: "#about" },
+    { label: t.nav.categories[locale], href: "#categories" },
+    { label: t.nav.videos[locale], href: "#videos" },
+    { label: t.nav.whyUs[locale], href: "#why" },
   ];
 
   return (
@@ -325,7 +342,6 @@ function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 gap-4">
-        {/* Logo */}
         <a href="#" className="flex items-center gap-2.5 shrink-0">
           <div className="relative">
             <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center glow-cyan-sm">
@@ -337,11 +353,10 @@ function Navbar() {
           </span>
         </a>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">
           {links.map((link) => (
             <a
-              key={link.label}
+              key={link.href}
               href={link.href}
               className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-white transition-colors duration-200 rounded-md hover:bg-white/5"
             >
@@ -350,8 +365,8 @@ function Navbar() {
           ))}
         </nav>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2">
+          <LanguageToggle />
           <Button
             asChild
             size="sm"
@@ -360,24 +375,25 @@ function Navbar() {
           >
             <a href="https://youtube.com/@Factopedia-ch" target="_blank" rel="noopener noreferrer">
               <SiYoutube size={14} />
-              Subscribe
+              {t.nav.subscribe[locale]}
             </a>
           </Button>
         </div>
 
-        {/* Mobile menu button */}
-        <Button
-          size="icon"
-          variant="ghost"
-          className="md:hidden text-white"
-          onClick={() => setMenuOpen((v) => !v)}
-          data-testid="button-menu-mobile"
-        >
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </Button>
+        <div className="flex md:hidden items-center gap-1">
+          <LanguageToggle />
+          <Button
+            size="icon"
+            variant="ghost"
+            className="text-white"
+            onClick={() => setMenuOpen((v) => !v)}
+            data-testid="button-menu-mobile"
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </Button>
+        </div>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -389,11 +405,10 @@ function Navbar() {
             <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-2">
               {links.map((link) => (
                 <a
-                  key={link.label}
+                  key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
                   className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-white transition-colors rounded-md hover:bg-white/5"
-                  data-testid={`link-mobile-${link.label.toLowerCase()}`}
                 >
                   {link.label}
                 </a>
@@ -406,7 +421,7 @@ function Navbar() {
               >
                 <a href="https://youtube.com/@Factopedia-ch" target="_blank" rel="noopener noreferrer">
                   <SiYoutube size={14} />
-                  Subscribe on YouTube
+                  {t.nav.subscribeYoutube[locale]}
                 </a>
               </Button>
             </div>
@@ -425,8 +440,9 @@ function HeroSection() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+  const { locale, t } = useI18n();
 
-  const words = ["Fascinating", "Extraordinary", "Mind-Blowing", "Incredible"];
+  const words = t.hero.words[locale];
   const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
@@ -434,7 +450,7 @@ function HeroSection() {
       setWordIndex((i) => (i + 1) % words.length);
     }, 2400);
     return () => clearInterval(interval);
-  }, []);
+  }, [words.length]);
 
   return (
     <section
@@ -495,7 +511,7 @@ function HeroSection() {
             data-testid="badge-hero-tagline"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-glow inline-block" />
-            New Fact Every Day at 9:00 AM
+            {t.hero.badge[locale]}
           </Badge>
         </motion.div>
 
@@ -507,7 +523,7 @@ function HeroSection() {
           className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight mb-2"
           data-testid="heading-hero-title"
         >
-          Discover the World's
+          {t.hero.title1[locale]}
         </motion.h1>
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
@@ -515,7 +531,7 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
           className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight mb-2"
         >
-          Most{" "}
+          {t.hero.title2[locale]}{" "}
           <span className="relative inline-block">
             <AnimatePresence mode="wait">
               <motion.span
@@ -537,7 +553,7 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
           className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight"
         >
-          Facts
+          {t.hero.title3[locale]}
         </motion.h1>
 
         {/* Subtitle */}
@@ -548,8 +564,7 @@ function HeroSection() {
           className="mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           data-testid="text-hero-subtitle"
         >
-          Science, history, culture, animals, and world mysteries — all in one place.
-          Join millions of curious minds exploring the extraordinary every day.
+          {t.hero.subtitle[locale]}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -567,7 +582,7 @@ function HeroSection() {
           >
             <a href="https://youtube.com/@Factopedia-ch" target="_blank" rel="noopener noreferrer">
               <Play size={18} fill="currentColor" />
-              Watch on YouTube
+              {t.hero.watchYoutube[locale]}
             </a>
           </Button>
           <Button
@@ -579,7 +594,7 @@ function HeroSection() {
           >
             <a href="https://youtube.com/@Factopedia-ch?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
               <Bell size={16} />
-              Subscribe Now
+              {t.hero.subscribeNow[locale]}
             </a>
           </Button>
         </motion.div>
@@ -591,7 +606,7 @@ function HeroSection() {
           transition={{ delay: 1.8 }}
           className="mt-20 flex flex-col items-center gap-2"
         >
-          <span className="text-xs text-muted-foreground/60 tracking-widest uppercase font-medium">Scroll to explore</span>
+          <span className="text-xs text-muted-foreground/60 tracking-widest uppercase font-medium">{t.hero.scrollExplore[locale]}</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
@@ -608,16 +623,17 @@ function HeroSection() {
 
 function StatsSection() {
   const { data: ytStats } = useYouTubeStats();
+  const { locale, t } = useI18n();
 
   const videoCount = ytStats ? parseInt(ytStats.videoCount, 10) : 500;
   const subscriberCount = ytStats ? parseInt(ytStats.subscriberCount, 10) : 50000;
   const viewCount = ytStats ? parseInt(ytStats.viewCount, 10) : 1000000;
 
   const stats = [
-    { value: videoCount, suffix: "+", label: "Videos Published", icon: Play },
-    { value: viewCount, suffix: "+", label: "Total Views", icon: Eye },
-    { value: subscriberCount, suffix: "+", label: "Subscribers", icon: Star },
-    { value: 7, suffix: "", label: "Knowledge Categories", icon: BookOpen },
+    { value: videoCount, suffix: "+", label: t.stats.videosPublished[locale], icon: Play },
+    { value: viewCount, suffix: "+", label: t.stats.totalViews[locale], icon: Eye },
+    { value: subscriberCount, suffix: "+", label: t.stats.subscribers[locale], icon: Star },
+    { value: 7, suffix: "", label: t.stats.knowledgeCategories[locale], icon: BookOpen },
   ];
 
   return (
@@ -653,11 +669,12 @@ function StatsSection() {
 
 function AboutSection() {
   const { data: ytStats } = useYouTubeStats();
+  const { locale, t } = useI18n();
   const features = [
-    { icon: Zap, label: "Daily Uploads", desc: "Fresh content every day at 9 AM" },
-    { icon: Brain, label: "Research-Backed", desc: "Verified from reliable sources" },
-    { icon: Eye, label: "Visual Stories", desc: "Cinematic production quality" },
-    { icon: Lightbulb, label: "Fun Learning", desc: "Education that entertains" },
+    { icon: Zap, label: t.about.features.dailyUploads[locale], desc: t.about.features.dailyUploadsDesc[locale] },
+    { icon: Brain, label: t.about.features.researchBacked[locale], desc: t.about.features.researchBackedDesc[locale] },
+    { icon: Eye, label: t.about.features.visualStories[locale], desc: t.about.features.visualStoriesDesc[locale] },
+    { icon: Lightbulb, label: t.about.features.funLearning[locale], desc: t.about.features.funLearningDesc[locale] },
   ];
 
   return (
@@ -669,27 +686,23 @@ function AboutSection() {
           <div>
             <ScrollReveal direction="left">
               <Badge variant="outline" className="mb-5 border-primary/30 text-primary bg-primary/8 px-3 py-1 text-xs uppercase tracking-widest">
-                About Factopedia
+                {t.about.badge[locale]}
               </Badge>
             </ScrollReveal>
             <ScrollReveal direction="left" delay={0.1}>
               <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight" data-testid="heading-about">
-                Where Curiosity Meets{" "}
-                <span className="gradient-text-cyan">Knowledge</span>
+                {t.about.heading1[locale]}{" "}
+                <span className="gradient-text-cyan">{t.about.heading2[locale]}</span>
               </h2>
             </ScrollReveal>
             <ScrollReveal direction="left" delay={0.2}>
               <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-                Factopedia is a YouTube channel dedicated to uncovering the world's most fascinating, 
-                strange, and wonderful facts. Every single day at <span className="text-primary font-semibold">9:00 AM</span>, we publish 
-                a new video that takes you on a journey through science, history, animals, cultures, 
-                and the mysteries of our universe.
+                {t.about.desc1[locale]}
               </p>
             </ScrollReveal>
             <ScrollReveal direction="left" delay={0.3}>
               <p className="text-muted-foreground text-base leading-relaxed mb-10">
-                From the deepest ocean trenches to the farthest reaches of space, from ancient 
-                civilizations to cutting-edge discoveries — if it's fascinating, you'll find it here.
+                {t.about.desc2[locale]}
               </p>
             </ScrollReveal>
 
@@ -731,15 +744,22 @@ function AboutSection() {
                   {/* Live badge */}
                   <div className="flex items-center gap-2 mb-4">
                     <span className="w-2 h-2 rounded-full bg-destructive animate-pulse" />
-                    <span className="text-xs text-destructive font-semibold uppercase tracking-widest">Live Channel</span>
+                    <span className="text-xs text-destructive font-semibold uppercase tracking-widest">{t.about.channelLive[locale]}</span>
                   </div>
 
                   <div className="font-display text-2xl font-bold text-white mb-2">Factopedia</div>
-                  <p className="text-sm text-muted-foreground mb-6">A new fact every day. No exceptions.</p>
+                  <p className="text-sm text-muted-foreground mb-6">{t.about.channelDesc[locale]}</p>
 
                   {/* Category pills */}
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {["Science", "History", "Animals", "Culture", "Space", "Nature"].map((cat) => (
+                    {[
+                      t.categories.items.science[locale],
+                      t.categories.items.history[locale],
+                      t.categories.items.animals[locale],
+                      t.categories.items.culture[locale],
+                      t.categories.items.plants[locale],
+                      t.categories.items.worldMysteries[locale],
+                    ].map((cat) => (
                       <span
                         key={cat}
                         className="px-3 py-1 text-xs rounded-full border border-primary/20 text-primary/80 bg-primary/8 font-medium"
@@ -753,8 +773,8 @@ function AboutSection() {
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-primary/8 border border-primary/20">
                     <Clock size={16} className="text-primary shrink-0" />
                     <div>
-                      <div className="text-xs font-semibold text-white">Daily Upload Schedule</div>
-                      <div className="text-xs text-muted-foreground">Every day at 9:00 AM</div>
+                      <div className="text-xs font-semibold text-white">{t.about.dailySchedule[locale]}</div>
+                      <div className="text-xs text-muted-foreground">{t.about.dailyScheduleDesc[locale]}</div>
                     </div>
                     <div className="ml-auto">
                       <span className="text-xs font-bold text-primary font-mono">09:00 AM</span>
@@ -769,8 +789,8 @@ function AboutSection() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -top-5 -right-5 bg-chart-2/20 border border-chart-2/30 rounded-lg p-3 backdrop-blur-sm"
               >
-                <div className="text-chart-2 text-xs font-bold">+{ytStats ? formatCount(ytStats.videoCount) : "500"} Videos</div>
-                <div className="text-muted-foreground text-xs">All Categories</div>
+                <div className="text-chart-2 text-xs font-bold">+{ytStats ? formatCount(ytStats.videoCount) : "500"} {t.about.videos[locale]}</div>
+                <div className="text-muted-foreground text-xs">{t.about.allCategories[locale]}</div>
               </motion.div>
 
               <motion.div
@@ -779,7 +799,7 @@ function AboutSection() {
                 className="absolute -bottom-4 -left-4 bg-chart-5/15 border border-chart-5/25 rounded-lg p-3 backdrop-blur-sm"
               >
                 <div className="text-chart-5 text-xs font-bold">{ytStats ? formatCount(ytStats.subscriberCount) : "50K"}+</div>
-                <div className="text-muted-foreground text-xs">Subscribers</div>
+                <div className="text-muted-foreground text-xs">{t.stats.subscribers[locale]}</div>
               </motion.div>
             </div>
           </ScrollReveal>
@@ -792,94 +812,96 @@ function AboutSection() {
 /* ─────────────────────────── CATEGORIES SECTION ─────────────────────────── */
 
 function CategoriesSection() {
+  const { locale, t } = useI18n();
+  const vs = t.categories.videosSuffix[locale];
   const categories = [
     {
       icon: Landmark,
-      name: "History",
-      desc: "Ancient civilizations, forgotten empires, and events that shaped humanity",
+      name: t.categories.items.history[locale],
+      desc: t.categories.items.historyDesc[locale],
       color: "text-chart-2",
       bg: "bg-chart-2/8",
       border: "border-chart-2/20",
       hoverBorder: "hover:border-chart-2/50",
       glow: "hover:shadow-[0_0_25px_hsla(45,95%,58%,0.15)]",
-      count: "120+ videos",
+      count: `120+ ${vs}`,
     },
     {
       icon: FlaskConical,
-      name: "Science",
-      desc: "Breakthroughs, discoveries, and the hidden laws of the universe",
+      name: t.categories.items.science[locale],
+      desc: t.categories.items.scienceDesc[locale],
       color: "text-chart-1",
       bg: "bg-chart-1/8",
       border: "border-chart-1/20",
       hoverBorder: "hover:border-chart-1/50",
       glow: "hover:shadow-[0_0_25px_hsla(191,100%,50%,0.15)]",
-      count: "150+ videos",
+      count: `150+ ${vs}`,
     },
     {
       icon: Globe,
-      name: "Culture",
-      desc: "Traditions, languages, customs, and what makes us uniquely human",
+      name: t.categories.items.culture[locale],
+      desc: t.categories.items.cultureDesc[locale],
       color: "text-chart-3",
       bg: "bg-chart-3/8",
       border: "border-chart-3/20",
       hoverBorder: "hover:border-chart-3/50",
       glow: "hover:shadow-[0_0_25px_hsla(270,80%,68%,0.15)]",
-      count: "85+ videos",
+      count: `85+ ${vs}`,
     },
     {
       icon: Feather,
-      name: "Animals",
-      desc: "Extraordinary creatures and the astonishing diversity of life on Earth",
+      name: t.categories.items.animals[locale],
+      desc: t.categories.items.animalsDesc[locale],
       color: "text-chart-5",
       bg: "bg-chart-5/8",
       border: "border-chart-5/20",
       hoverBorder: "hover:border-chart-5/50",
       glow: "hover:shadow-[0_0_25px_hsla(142,76%,52%,0.15)]",
-      count: "95+ videos",
+      count: `95+ ${vs}`,
     },
     {
       icon: Leaf,
-      name: "Plants",
-      desc: "The secret lives of plants — from carnivores to ancient trees",
+      name: t.categories.items.plants[locale],
+      desc: t.categories.items.plantsDesc[locale],
       color: "text-chart-5",
       bg: "bg-chart-5/8",
       border: "border-chart-5/20",
       hoverBorder: "hover:border-chart-5/50",
       glow: "hover:shadow-[0_0_25px_hsla(142,76%,52%,0.15)]",
-      count: "60+ videos",
+      count: `60+ ${vs}`,
     },
     {
       icon: Telescope,
-      name: "World Mysteries",
-      desc: "Unexplained phenomena, ancient puzzles, and secrets yet unsolved",
+      name: t.categories.items.worldMysteries[locale],
+      desc: t.categories.items.worldMysteriesDesc[locale],
       color: "text-chart-4",
       bg: "bg-chart-4/8",
       border: "border-chart-4/20",
       hoverBorder: "hover:border-chart-4/50",
       glow: "hover:shadow-[0_0_25px_hsla(340,82%,66%,0.15)]",
-      count: "70+ videos",
+      count: `70+ ${vs}`,
     },
     {
       icon: Newspaper,
-      name: "News Facts",
-      desc: "Current events explained with fascinating factual context",
+      name: t.categories.items.newsFacts[locale],
+      desc: t.categories.items.newsFactsDesc[locale],
       color: "text-chart-1",
       bg: "bg-chart-1/8",
       border: "border-chart-1/20",
       hoverBorder: "hover:border-chart-1/50",
       glow: "hover:shadow-[0_0_25px_hsla(191,100%,50%,0.15)]",
-      count: "40+ videos",
+      count: `40+ ${vs}`,
     },
     {
       icon: Waves,
-      name: "World Curiosities",
-      desc: "Little-known wonders and surprising truths about our planet",
+      name: t.categories.items.worldCuriosities[locale],
+      desc: t.categories.items.worldCuriositiesDesc[locale],
       color: "text-chart-2",
       bg: "bg-chart-2/8",
       border: "border-chart-2/20",
       hoverBorder: "hover:border-chart-2/50",
       glow: "hover:shadow-[0_0_25px_hsla(45,95%,58%,0.15)]",
-      count: "55+ videos",
+      count: `55+ ${vs}`,
     },
   ];
 
@@ -890,13 +912,13 @@ function CategoriesSection() {
         <ScrollReveal direction="up">
           <div className="text-center mb-16">
             <Badge variant="outline" className="mb-5 border-primary/30 text-primary bg-primary/8 px-3 py-1 text-xs uppercase tracking-widest">
-              Content Categories
+              {t.categories.badge[locale]}
             </Badge>
             <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4" data-testid="heading-categories">
-              Explore Every <span className="gradient-text-cyan">Corner</span> of Knowledge
+              {t.categories.heading1[locale]} <span className="gradient-text-cyan">{t.categories.heading2[locale]}</span> {t.categories.heading3[locale]}
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Eight carefully curated categories, each packed with stories that will change how you see the world.
+              {t.categories.subtitle[locale]}
             </p>
           </div>
         </ScrollReveal>
@@ -953,6 +975,7 @@ function VideoCard({
   index: number;
 }) {
   const [hovered, setHovered] = useState(false);
+  const { locale, t } = useI18n();
 
   return (
     <ScrollReveal delay={index * 0.1} direction="up">
@@ -1023,9 +1046,9 @@ function VideoCard({
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
               <Eye size={12} />
-              <span>{views} views</span>
+              <span>{views} {t.videos.views[locale]}</span>
             </div>
-            <span>{daysAgo === 0 ? "Today" : `${daysAgo}d ago`}</span>
+            <span>{daysAgo === 0 ? t.videos.today[locale] : `${daysAgo} ${t.videos.daysAgo[locale]}`}</span>
           </div>
         </div>
       </motion.div>
@@ -1036,50 +1059,51 @@ function VideoCard({
 /* ─────────────────────────── VIDEOS SECTION ─────────────────────────── */
 
 function VideosSection() {
+  const { locale, t } = useI18n();
   const videos = [
     {
-      title: "Why Do Cats Always Land on Their Feet? The Physics Is Incredible",
-      category: "Animals",
+      title: t.videos.items.v1Title[locale],
+      category: t.categories.items.animals[locale],
       views: "42K",
       duration: "8:24",
       daysAgo: 0,
       videoId: "RtWbpyjJqrU",
     },
     {
-      title: "The Lost City of Atlantis — What Do We Actually Know?",
-      category: "World Mysteries",
+      title: t.videos.items.v2Title[locale],
+      category: t.categories.items.worldMysteries[locale],
       views: "89K",
       duration: "11:15",
       daysAgo: 1,
       videoId: "nVUJqJIEkFI",
     },
     {
-      title: "How Black Holes Actually Distort Time — Einstein Was Right",
-      category: "Science",
+      title: t.videos.items.v3Title[locale],
+      category: t.categories.items.science[locale],
       views: "130K",
       duration: "9:52",
       daysAgo: 2,
       videoId: "e-P5IFTqB98",
     },
     {
-      title: "The Ancient Roman Road Network Was More Advanced Than We Thought",
-      category: "History",
+      title: t.videos.items.v4Title[locale],
+      category: t.categories.items.history[locale],
       views: "67K",
       duration: "10:08",
       daysAgo: 3,
       videoId: "oJEUFMB5zEo",
     },
     {
-      title: "The Most Dangerous Plant in the World — And It's Everywhere",
-      category: "Plants",
+      title: t.videos.items.v5Title[locale],
+      category: t.categories.items.plants[locale],
       views: "55K",
       duration: "7:38",
       daysAgo: 4,
       videoId: "4Q5VkqSH8T0",
     },
     {
-      title: "How the Moon Is Slowly Drifting Away From Earth",
-      category: "Science",
+      title: t.videos.items.v6Title[locale],
+      category: t.categories.items.science[locale],
       views: "98K",
       duration: "12:01",
       daysAgo: 5,
@@ -1094,13 +1118,13 @@ function VideosSection() {
         <ScrollReveal direction="up">
           <div className="text-center mb-16">
             <Badge variant="outline" className="mb-5 border-primary/30 text-primary bg-primary/8 px-3 py-1 text-xs uppercase tracking-widest">
-              Latest Videos
+              {t.videos.badge[locale]}
             </Badge>
             <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4" data-testid="heading-videos">
-              Fresh <span className="gradient-text-cyan">Facts</span> Every Day
+              {t.videos.heading1[locale]} <span className="gradient-text-cyan">{t.videos.heading2[locale]}</span> {t.videos.heading3[locale]}
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Our latest discoveries — each video is a journey into something extraordinary.
+              {t.videos.subtitle[locale]}
             </p>
           </div>
         </ScrollReveal>
@@ -1122,7 +1146,7 @@ function VideosSection() {
             >
               <a href="https://youtube.com/@Factopedia-ch/videos" target="_blank" rel="noopener noreferrer">
                 <SiYoutube size={16} />
-                View All Videos on YouTube
+                {t.videos.viewAll[locale]}
                 <ArrowRight size={16} />
               </a>
             </Button>
@@ -1136,52 +1160,53 @@ function VideosSection() {
 /* ─────────────────────────── WHY WATCH SECTION ─────────────────────────── */
 
 function WhyWatchSection() {
+  const { locale, t } = useI18n();
   const reasons = [
     {
       icon: Clock,
-      title: "Daily New Content",
-      desc: "A brand new fascinating fact drops every single day at 9:00 AM — no gaps, no exceptions.",
-      highlight: "365 days/year",
+      title: t.why.items.dailyTitle[locale],
+      desc: t.why.items.dailyDesc[locale],
+      highlight: t.why.items.dailyHighlight[locale],
       color: "text-chart-1",
       bg: "bg-chart-1/10",
     },
     {
       icon: CheckCircle,
-      title: "Reliable Information",
-      desc: "Every fact is carefully researched and cross-referenced with credible scientific and historical sources.",
-      highlight: "Fact-checked",
+      title: t.why.items.reliableTitle[locale],
+      desc: t.why.items.reliableDesc[locale],
+      highlight: t.why.items.reliableHighlight[locale],
       color: "text-chart-5",
       bg: "bg-chart-5/10",
     },
     {
       icon: Sparkles,
-      title: "Stunning Visuals",
-      desc: "Cinematic-quality production with custom animations, infographics, and beautiful storytelling.",
-      highlight: "HD Quality",
+      title: t.why.items.visualsTitle[locale],
+      desc: t.why.items.visualsDesc[locale],
+      highlight: t.why.items.visualsHighlight[locale],
       color: "text-chart-2",
       bg: "bg-chart-2/10",
     },
     {
       icon: Zap,
-      title: "Short & Engaging",
-      desc: "Each video is optimized for maximum information density — perfect for busy learners.",
-      highlight: "5–15 minutes",
+      title: t.why.items.shortTitle[locale],
+      desc: t.why.items.shortDesc[locale],
+      highlight: t.why.items.shortHighlight[locale],
       color: "text-chart-4",
       bg: "bg-chart-4/10",
     },
     {
       icon: Globe,
-      title: "Global Perspective",
-      desc: "Stories from every continent, every era, and every corner of the natural world.",
-      highlight: "World-spanning",
+      title: t.why.items.globalTitle[locale],
+      desc: t.why.items.globalDesc[locale],
+      highlight: t.why.items.globalHighlight[locale],
       color: "text-chart-3",
       bg: "bg-chart-3/10",
     },
     {
       icon: Brain,
-      title: "Fun Storytelling",
-      desc: "Complex topics explained simply, with humor, wonder, and narrative that keeps you hooked.",
-      highlight: "Always engaging",
+      title: t.why.items.funTitle[locale],
+      desc: t.why.items.funDesc[locale],
+      highlight: t.why.items.funHighlight[locale],
       color: "text-chart-1",
       bg: "bg-chart-1/10",
     },
@@ -1197,13 +1222,13 @@ function WhyWatchSection() {
         <ScrollReveal direction="up">
           <div className="text-center mb-16">
             <Badge variant="outline" className="mb-5 border-primary/30 text-primary bg-primary/8 px-3 py-1 text-xs uppercase tracking-widest">
-              Why Factopedia
+              {t.why.badge[locale]}
             </Badge>
             <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4" data-testid="heading-why-watch">
-              Six Reasons to <span className="gradient-text-cyan">Subscribe</span> Today
+              {t.why.heading1[locale]} <span className="gradient-text-cyan">{t.why.heading2[locale]}</span> {t.why.heading3[locale]}
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Thousands of curious minds already chose Factopedia as their daily dose of wonder. Here's why.
+              {t.why.subtitle[locale]}
             </p>
           </div>
         </ScrollReveal>
@@ -1238,6 +1263,7 @@ function WhyWatchSection() {
 /* ─────────────────────────── COUNTDOWN SECTION ─────────────────────────── */
 
 function CountdownSection() {
+  const { locale, t } = useI18n();
   const getNextUploadTime = useCallback(() => {
     const now = new Date();
     const next = new Date();
@@ -1283,19 +1309,19 @@ function CountdownSection() {
             </div>
           </div>
           <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-3 mt-6" data-testid="heading-countdown">
-            Next Fact Drops In
+            {t.countdown.heading[locale]}
           </h2>
           <p className="text-muted-foreground text-lg mb-12">
-            New video every day at <span className="text-primary font-semibold">9:00 AM</span> — set your reminder
+            {t.countdown.subtitle1[locale]} <span className="text-primary font-semibold">9:00 AM</span> {t.countdown.subtitle2[locale]}
           </p>
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0.2}>
           <div className="flex items-center justify-center gap-4 sm:gap-8" data-testid="countdown-timer">
             {[
-              { value: pad(timeLeft.h), label: "Hours" },
-              { value: pad(timeLeft.m), label: "Minutes" },
-              { value: pad(timeLeft.s), label: "Seconds" },
+              { value: pad(timeLeft.h), label: t.countdown.hours[locale] },
+              { value: pad(timeLeft.m), label: t.countdown.minutes[locale] },
+              { value: pad(timeLeft.s), label: t.countdown.seconds[locale] },
             ].map((unit, i) => (
               <div key={unit.label} className="flex items-center">
                 <div className="text-center">
@@ -1334,7 +1360,7 @@ function CountdownSection() {
             >
               <a href="https://youtube.com/@Factopedia-ch?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
                 <Bell size={18} />
-                Set Reminder — Subscribe Free
+                {t.countdown.setReminder[locale]}
               </a>
             </Button>
           </div>
@@ -1348,6 +1374,7 @@ function CountdownSection() {
 
 function CTASection() {
   const { data: ytStats } = useYouTubeStats();
+  const { locale, t } = useI18n();
   return (
     <section className="relative py-28 overflow-hidden" data-testid="section-cta">
       {/* Dramatic background */}
@@ -1383,12 +1410,11 @@ function CTASection() {
             </motion.div>
           </div>
           <h2 className="font-display text-4xl sm:text-6xl font-bold text-white mb-6 leading-tight" data-testid="heading-cta">
-            Join Thousands of{" "}
-            <span className="gradient-text-gold">Curious Minds</span>
+            {t.cta.heading1[locale]}{" "}
+            <span className="gradient-text-gold">{t.cta.heading2[locale]}</span>
           </h2>
           <p className="text-muted-foreground text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
-            Subscribe to Factopedia and never miss a fascinating fact again. 
-            It's free, it's daily, and it will change how you see the world.
+            {t.cta.subtitle[locale]}
           </p>
         </ScrollReveal>
 
@@ -1402,7 +1428,7 @@ function CTASection() {
             >
               <a href="https://youtube.com/@Factopedia-ch?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
                 <SiYoutube size={20} />
-                Subscribe Free on YouTube
+                {t.cta.subscribeFree[locale]}
               </a>
             </Button>
             <Button
@@ -1414,7 +1440,7 @@ function CTASection() {
             >
               <a href="https://youtube.com/@Factopedia-ch/videos" target="_blank" rel="noopener noreferrer">
                 <Play size={16} fill="currentColor" />
-                Browse All Videos
+                {t.cta.browseAll[locale]}
               </a>
             </Button>
           </div>
@@ -1424,9 +1450,9 @@ function CTASection() {
         <ScrollReveal direction="up" delay={0.4}>
           <div className="mt-12 flex flex-wrap items-center justify-center gap-8">
             {[
-              { value: ytStats ? formatCount(ytStats.subscriberCount) + "+" : "50K+", label: "Subscribers" },
-              { value: ytStats ? formatCount(ytStats.videoCount) + "+" : "500+", label: "Videos" },
-              { value: ytStats ? formatCount(ytStats.viewCount) + "+" : "1M+", label: "Total Views" },
+              { value: ytStats ? formatCount(ytStats.subscriberCount) + "+" : "50K+", label: t.stats.subscribers[locale] },
+              { value: ytStats ? formatCount(ytStats.videoCount) + "+" : "500+", label: t.about.videos[locale] },
+              { value: ytStats ? formatCount(ytStats.viewCount) + "+" : "1M+", label: t.cta.totalViews[locale] },
             ].map((s) => (
               <div key={s.label} className="text-center" data-testid={`stat-cta-${s.label.toLowerCase()}`}>
                 <div className="font-display text-2xl font-bold gradient-text-cyan">{s.value}</div>
@@ -1443,7 +1469,16 @@ function CTASection() {
 /* ─────────────────────────── FOOTER ─────────────────────────── */
 
 function Footer() {
-  const categories = ["History", "Science", "Culture", "Animals", "Plants", "World Mysteries", "News Facts"];
+  const { locale, t } = useI18n();
+  const categories = [
+    t.categories.items.history[locale],
+    t.categories.items.science[locale],
+    t.categories.items.culture[locale],
+    t.categories.items.animals[locale],
+    t.categories.items.plants[locale],
+    t.categories.items.worldMysteries[locale],
+    t.categories.items.newsFacts[locale],
+  ];
 
   return (
     <footer className="relative bg-[hsl(222,47%,3%)] border-t border-border/30 pt-16 pb-8 overflow-hidden" data-testid="section-footer">
@@ -1461,8 +1496,7 @@ function Footer() {
               </span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-sm">
-              Discover the world's most fascinating facts. New video every day at 9:00 AM.
-              Science, history, animals, culture, and so much more.
+              {t.footer.tagline[locale]}
             </p>
             <div className="flex items-center gap-3 flex-wrap">
               <a
@@ -1496,7 +1530,7 @@ function Footer() {
 
           {/* Categories */}
           <div>
-            <h4 className="font-semibold text-white text-sm mb-4 uppercase tracking-widest">Categories</h4>
+            <h4 className="font-semibold text-white text-sm mb-4 uppercase tracking-widest">{t.footer.categoriesTitle[locale]}</h4>
             <ul className="space-y-2.5">
               {categories.map((cat) => (
                 <li key={cat}>
@@ -1515,12 +1549,12 @@ function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-white text-sm mb-4 uppercase tracking-widest">Contact</h4>
+            <h4 className="font-semibold text-white text-sm mb-4 uppercase tracking-widest">{t.footer.contactTitle[locale]}</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <Mail size={14} className="text-primary mt-0.5 shrink-0" />
                 <div>
-                  <div className="text-xs text-muted-foreground mb-0.5">Email</div>
+                  <div className="text-xs text-muted-foreground mb-0.5">{t.footer.email[locale]}</div>
                   <a
                     href="mailto:hello@factopedia.com"
                     className="text-sm text-white hover:text-primary transition-colors"
@@ -1533,7 +1567,7 @@ function Footer() {
               <div className="flex items-start gap-3">
                 <Youtube size={14} className="text-destructive mt-0.5 shrink-0" />
                 <div>
-                  <div className="text-xs text-muted-foreground mb-0.5">YouTube Channel</div>
+                  <div className="text-xs text-muted-foreground mb-0.5">{t.footer.youtubeChannel[locale]}</div>
                   <a
                     href="https://youtube.com/@Factopedia-ch"
                     target="_blank"
@@ -1548,8 +1582,8 @@ function Footer() {
               <div className="flex items-start gap-3">
                 <Clock size={14} className="text-primary mt-0.5 shrink-0" />
                 <div>
-                  <div className="text-xs text-muted-foreground mb-0.5">Daily Upload</div>
-                  <div className="text-sm text-white">Every day at 9:00 AM</div>
+                  <div className="text-xs text-muted-foreground mb-0.5">{t.footer.dailyUpload[locale]}</div>
+                  <div className="text-sm text-white">{t.footer.dailyUploadTime[locale]}</div>
                 </div>
               </div>
             </div>
@@ -1559,11 +1593,11 @@ function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-border/30 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground" data-testid="text-copyright">
-            © {new Date().getFullYear()} Factopedia. All rights reserved.
+            © {new Date().getFullYear()} Factopedia. {t.footer.copyright[locale]}
           </p>
           <div className="flex items-center gap-4">
-            <a href="#" className="text-xs text-muted-foreground hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="text-xs text-muted-foreground hover:text-white transition-colors">Terms of Service</a>
+            <a href="#" className="text-xs text-muted-foreground hover:text-white transition-colors">{t.footer.privacy[locale]}</a>
+            <a href="#" className="text-xs text-muted-foreground hover:text-white transition-colors">{t.footer.terms[locale]}</a>
           </div>
         </div>
       </div>
@@ -1574,16 +1608,8 @@ function Footer() {
 /* ─────────────────────────── INTERACTIVE FACT TICKER ─────────────────────────── */
 
 function FactTicker() {
-  const facts = [
-    "Octopuses have three hearts and blue blood",
-    "The Great Wall of China isn't visible from space",
-    "Cleopatra lived closer in time to the Moon landing than to the pyramids",
-    "Honey never spoils — 3,000-year-old honey was found edible in Egyptian tombs",
-    "A day on Venus is longer than a year on Venus",
-    "Bananas are technically berries, but strawberries are not",
-    "The human body contains enough carbon to make 900 pencils",
-    "Trees communicate through underground fungal networks",
-  ];
+  const { locale, t } = useI18n();
+  const facts = t.ticker.facts[locale];
 
   const [currentFact, setCurrentFact] = useState(0);
 
@@ -1592,7 +1618,7 @@ function FactTicker() {
       setCurrentFact((i) => (i + 1) % facts.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [facts.length]);
 
   return (
     <div
@@ -1602,7 +1628,7 @@ function FactTicker() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-4">
         <div className="shrink-0 flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span className="text-xs font-bold text-primary uppercase tracking-widest whitespace-nowrap">Did You Know?</span>
+          <span className="text-xs font-bold text-primary uppercase tracking-widest whitespace-nowrap">{t.ticker.label[locale]}</span>
         </div>
         <div className="flex-1 overflow-hidden relative h-5">
           <AnimatePresence mode="wait">
