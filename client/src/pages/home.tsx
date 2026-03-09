@@ -1519,21 +1519,21 @@ function Footer() {
                 href="https://instagram.com/factopedia_ch_real"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-card-border text-muted-foreground text-sm hover:text-white hover:border-border transition-colors"
+                className="group/ig flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-card-border text-muted-foreground text-sm hover:text-white hover:border-border transition-colors"
                 data-testid="link-footer-instagram"
               >
-                <Instagram size={14} />
-                Instagram
+                <Instagram size={14} className="text-[#E4405F] group-hover/ig:text-[#E4405F]" />
+                <span className="bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] bg-clip-text text-transparent">Instagram</span>
               </a>
               <a
                 href="https://tiktok.com/@factopedia_ch"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-card-border text-muted-foreground text-sm hover:text-white hover:border-border transition-colors"
+                className="group/tt flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-card-border text-muted-foreground text-sm hover:text-white hover:border-border transition-colors"
                 data-testid="link-footer-tiktok"
               >
-                <SiTiktok size={14} />
-                TikTok
+                <SiTiktok size={14} className="text-[#00F2EA] group-hover/tt:text-[#00F2EA]" />
+                <span className="bg-gradient-to-r from-[#00F2EA] to-[#FF0050] bg-clip-text text-transparent">TikTok</span>
               </a>
             </div>
           </div>
