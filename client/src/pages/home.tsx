@@ -948,10 +948,6 @@ function CategoriesSection() {
                 <h3 className="font-semibold text-white text-base mb-2 group-hover:text-primary transition-colors duration-200">{cat.name}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">{cat.desc}</p>
 
-                <div className={`flex items-center gap-1.5 text-xs font-medium ${cat.color} opacity-70`}>
-                  <Play size={10} fill="currentColor" />
-                  {cat.count}
-                </div>
               </motion.div>
             </ScrollReveal>
           ))}
