@@ -43,7 +43,6 @@ import {
   Leaf,
   Feather,
   Telescope,
-  Newspaper,
   Microscope,
   BookOpen,
   Play,
@@ -60,7 +59,6 @@ import {
   Lightbulb,
   Atom,
   TreePine,
-  Waves,
   MapPin,
   Timer,
   Bell,
@@ -633,7 +631,7 @@ function StatsSection() {
     { value: videoCount, suffix: "+", label: t.stats.videosPublished[locale], icon: Play },
     { value: viewCount, suffix: "+", label: t.stats.totalViews[locale], icon: Eye },
     { value: subscriberCount, suffix: "+", label: t.stats.subscribers[locale], icon: Star },
-    { value: 7, suffix: "", label: t.stats.knowledgeCategories[locale], icon: BookOpen },
+    { value: 4, suffix: "", label: t.stats.knowledgeCategories[locale], icon: BookOpen },
   ];
 
   return (
@@ -762,9 +760,7 @@ function AboutSection() {
                       t.categories.items.science[locale],
                       t.categories.items.history[locale],
                       t.categories.items.animals[locale],
-                      t.categories.items.culture[locale],
                       t.categories.items.plants[locale],
-                      t.categories.items.worldMysteries[locale],
                     ].map((cat) => (
                       <span
                         key={cat}
@@ -819,19 +815,7 @@ function AboutSection() {
 
 function CategoriesSection() {
   const { locale, t } = useI18n();
-  const vs = t.categories.videosSuffix[locale];
   const categories = [
-    {
-      icon: Landmark,
-      name: t.categories.items.history[locale],
-      desc: t.categories.items.historyDesc[locale],
-      color: "text-chart-2",
-      bg: "bg-chart-2/8",
-      border: "border-chart-2/20",
-      hoverBorder: "hover:border-chart-2/50",
-      glow: "hover:shadow-[0_0_25px_hsla(45,95%,58%,0.15)]",
-      count: `120+ ${vs}`,
-    },
     {
       icon: FlaskConical,
       name: t.categories.items.science[locale],
@@ -841,18 +825,18 @@ function CategoriesSection() {
       border: "border-chart-1/20",
       hoverBorder: "hover:border-chart-1/50",
       glow: "hover:shadow-[0_0_25px_hsla(191,100%,50%,0.15)]",
-      count: `150+ ${vs}`,
+      playlistId: "PLDX4ZIKdbHYMgr4iAncAhMpaNetPcuyid",
     },
     {
-      icon: Globe,
-      name: t.categories.items.culture[locale],
-      desc: t.categories.items.cultureDesc[locale],
-      color: "text-chart-3",
-      bg: "bg-chart-3/8",
-      border: "border-chart-3/20",
-      hoverBorder: "hover:border-chart-3/50",
-      glow: "hover:shadow-[0_0_25px_hsla(270,80%,68%,0.15)]",
-      count: `85+ ${vs}`,
+      icon: Landmark,
+      name: t.categories.items.history[locale],
+      desc: t.categories.items.historyDesc[locale],
+      color: "text-chart-2",
+      bg: "bg-chart-2/8",
+      border: "border-chart-2/20",
+      hoverBorder: "hover:border-chart-2/50",
+      glow: "hover:shadow-[0_0_25px_hsla(45,95%,58%,0.15)]",
+      playlistId: "PLDX4ZIKdbHYNARuUvo36AAANH7HKeX9CW",
     },
     {
       icon: Feather,
@@ -863,7 +847,7 @@ function CategoriesSection() {
       border: "border-chart-5/20",
       hoverBorder: "hover:border-chart-5/50",
       glow: "hover:shadow-[0_0_25px_hsla(142,76%,52%,0.15)]",
-      count: `95+ ${vs}`,
+      playlistId: "PLDX4ZIKdbHYPNiDoLul-Gy0yPFiAPiToO",
     },
     {
       icon: Leaf,
@@ -874,40 +858,7 @@ function CategoriesSection() {
       border: "border-chart-5/20",
       hoverBorder: "hover:border-chart-5/50",
       glow: "hover:shadow-[0_0_25px_hsla(142,76%,52%,0.15)]",
-      count: `60+ ${vs}`,
-    },
-    {
-      icon: Telescope,
-      name: t.categories.items.worldMysteries[locale],
-      desc: t.categories.items.worldMysteriesDesc[locale],
-      color: "text-chart-4",
-      bg: "bg-chart-4/8",
-      border: "border-chart-4/20",
-      hoverBorder: "hover:border-chart-4/50",
-      glow: "hover:shadow-[0_0_25px_hsla(340,82%,66%,0.15)]",
-      count: `70+ ${vs}`,
-    },
-    {
-      icon: Newspaper,
-      name: t.categories.items.newsFacts[locale],
-      desc: t.categories.items.newsFactsDesc[locale],
-      color: "text-chart-1",
-      bg: "bg-chart-1/8",
-      border: "border-chart-1/20",
-      hoverBorder: "hover:border-chart-1/50",
-      glow: "hover:shadow-[0_0_25px_hsla(191,100%,50%,0.15)]",
-      count: `40+ ${vs}`,
-    },
-    {
-      icon: Waves,
-      name: t.categories.items.worldCuriosities[locale],
-      desc: t.categories.items.worldCuriositiesDesc[locale],
-      color: "text-chart-2",
-      bg: "bg-chart-2/8",
-      border: "border-chart-2/20",
-      hoverBorder: "hover:border-chart-2/50",
-      glow: "hover:shadow-[0_0_25px_hsla(45,95%,58%,0.15)]",
-      count: `55+ ${vs}`,
+      playlistId: "PLDX4ZIKdbHYMgOrdzYvrTRPWYVCIQpKEQ",
     },
   ];
 
@@ -932,23 +883,28 @@ function CategoriesSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {categories.map((cat, i) => (
             <ScrollReveal key={cat.name} delay={i * 0.06} direction="up">
-              <motion.div
-                whileHover={{ y: -4, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className={`relative group p-5 rounded-xl border ${cat.border} ${cat.hoverBorder} ${cat.glow} bg-card transition-all duration-300 cursor-pointer overflow-hidden`}
-                data-testid={`card-category-${cat.name.toLowerCase().replace(/\s+/g, "-")}`}
+              <a
+                href={`https://www.youtube.com/playlist?list=${cat.playlistId}`}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {/* Shimmer overlay on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-br from-white/3 to-transparent" />
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className={`relative group p-5 rounded-xl border ${cat.border} ${cat.hoverBorder} ${cat.glow} bg-card transition-all duration-300 cursor-pointer overflow-hidden`}
+                  data-testid={`card-category-${cat.name.toLowerCase().replace(/\s+/g, "-")}`}
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-br from-white/3 to-transparent" />
 
-                <div className={`w-10 h-10 rounded-lg ${cat.bg} border ${cat.border} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <cat.icon size={20} className={cat.color} />
-                </div>
+                  <div className={`w-10 h-10 rounded-lg ${cat.bg} border ${cat.border} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <cat.icon size={20} className={cat.color} />
+                  </div>
 
-                <h3 className="font-semibold text-white text-base mb-2 group-hover:text-primary transition-colors duration-200">{cat.name}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">{cat.desc}</p>
+                  <h3 className="font-semibold text-white text-base mb-2 group-hover:text-primary transition-colors duration-200">{cat.name}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">{cat.desc}</p>
 
-              </motion.div>
+                </motion.div>
+              </a>
             </ScrollReveal>
           ))}
         </div>
@@ -1471,13 +1427,10 @@ function CTASection() {
 function Footer() {
   const { locale, t } = useI18n();
   const categories = [
-    t.categories.items.history[locale],
     t.categories.items.science[locale],
-    t.categories.items.culture[locale],
+    t.categories.items.history[locale],
     t.categories.items.animals[locale],
     t.categories.items.plants[locale],
-    t.categories.items.worldMysteries[locale],
-    t.categories.items.newsFacts[locale],
   ];
 
   return (
